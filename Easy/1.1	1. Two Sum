@@ -1,0 +1,31 @@
+# Brute force	
+class Solution:
+    def twoSum(self, nums: List[int], target: int):
+        for i in range(len(nums)):
+            for j in range(i+1, len(nums)):
+                if nums[i] + nums[j] == target:
+                    return [i, j]
+                    
+# Hashmap – storing current index	
+class Solution:
+    def twoSum(self, nums: List[int], target: int):
+        hashmap = {}
+        for i, e in enumerate(nums):
+            if (target - e) in hashmap:
+                return [i, hashmap[target - e][0]]
+            
+            if e not in hashmap:
+                hashmap[e] = [i]
+            else:
+                hashmap[e].append(i)
+                
+# Hashmap - store target index	
+class Solution:
+    def twoSum(self, nums: List[int], target: int):
+        # 
+        hashmap = {}
+        for i, e in enumerate(nums):
+            if e in hashmap:
+                return [i, hashmap[e]]
+            else:
+                hashmap[target - e] = i
