@@ -1,0 +1,28 @@
+# Stack 1	
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        for elem in s:
+            if elem == '(' or elem == '{' or elem == '[':
+                stack.append(elem)
+            else:
+                if not stack or (stack[-1] == '(' and elem != ')') or (stack[-1] == '{' and elem != '}') or (stack[-1] == '[' and elem != ']'):
+                    return False
+                stack.pop()
+        return len(stack) == 0
+
+# Stack - 2	
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        for elem in s:
+            if elem == '(':
+                stack.append(')')
+            elif elem == '{':
+                stack.append('}')
+            elif elem == '[':
+                stack.append(']')
+            elif not stack or stack.pop() != elem:
+                return False
+        return len(stack) == 0
+
