@@ -1,0 +1,28 @@
+# String convertion	
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        res = []
+        s = str(int(''.join([str(i) for i in digits])) + 1)
+        for c in s:
+            res.append(int(c))
+        return res
+
+# Keeping the array	
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        for i in range(len(digits)-1, -1, -1):
+            if digits[i] < 9:
+                digits[i] += 1
+                return digits
+            digits[i] = 0
+        ndigits = [1]*(len(digits)+1)
+        ndigits[1:] = digits
+        return ndigits
+
+# Math solution	
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        res = 0
+        for i, e in enumerate(digits):
+            res += e*pow(10,(len(digits)-i-1))
+        return [int(i) for i in str(res+1)]
