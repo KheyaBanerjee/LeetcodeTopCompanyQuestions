@@ -1,0 +1,28 @@
+# Brute force	
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        if numRows == 1:
+            return [[1]]
+        res = [[1]]
+        for i in range(1,numRows):
+            rowlen = i+1
+            tmp = [0]*rowlen
+            prev = res[-1]
+            for j in range(rowlen):
+                if j == 0:
+                    tmp[j] = prev[0]
+                elif j == rowlen-1:
+                    tmp[j] = prev[-1]
+                else:
+                    tmp[j] = prev[j-1]+prev[j]
+            res.append(tmp)
+        return res
+
+# Dynamic programming?	
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        res = [[1]*(i+1) for i in range(numRows)]
+        for i in range(2,numRows):
+            for j in range(1, len(res[i])-1):
+                res[i][j] = res[i-1][j-1] + res[i-1][j]
+        return res  
