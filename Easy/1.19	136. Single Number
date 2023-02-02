@@ -1,0 +1,29 @@
+# Dictionary	
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:       
+        d = {}
+        for num in nums:
+            if num in d.keys():
+                d[num] += 1
+            else:
+                d[num] = 1
+        for key in d:
+            if d[key] == 1:
+                return key
+
+# Bit manipulation	
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        res = 0
+        for num in nums:
+            res ^= num
+        return res
+
+# Sorting	
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        nums.sort()
+        for i in range(1, len(nums), 2):
+            if nums[i-1] != nums[i]:
+                return nums[i-1]
+        return nums[-1]
