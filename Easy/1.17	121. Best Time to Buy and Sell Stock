@@ -1,0 +1,31 @@
+# Brute force	
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        max_profit, min_price = 0, float('inf')
+        for num in prices:
+            min_price = min(min_price,num)
+            profit = num - min_price
+            max_profit = max(profit,max_profit)
+        return max_profit
+
+# Two pointer	
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        left, right = 0, 1
+        max_profit = 0
+        while right < len(prices):
+            if prices[right] > prices[left]:
+                max_profit = max(max_profit, (prices[right] - prices[left]))
+            else:
+                left = right
+            right += 1
+        return max_profit
+
+# Brute force - simpler code	
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        max_profit, min_price = 0, float('inf')
+        for i in range(len(prices)):
+            min_price = min(min_price, prices[i])
+            max_profit = max(max_profit, prices[i] - min_price)
+        return max_profit
