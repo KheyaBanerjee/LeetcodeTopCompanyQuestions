@@ -1,0 +1,16 @@
+# ASCII value conversion	
+class Solution:
+    def titleToNumber(self, columnTitle: str) -> int:
+        colnum = 0
+        for i,c in enumerate(columnTitle[::-1]):
+            colnum += (ord(c)-64)*26**(i)
+        return colnum
+
+# ASCII, understandable code	
+class Solution:
+    def titleToNumber(self, columnTitle: str) -> int:
+        res = 0
+        for i, val in enumerate(columnTitle[::-1]):
+            digit = ord(val) - 64
+            res += digit*26**i
+        return res
