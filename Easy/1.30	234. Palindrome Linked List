@@ -1,0 +1,51 @@
+# Converting to a list	
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        lltolist = []
+        while head:
+            lltolist.append(head.val)
+            head = head.next
+        head, tail = 0, len(lltolist)-1
+        while head < tail:
+            if lltolist[head] == lltolist[tail]:
+                head += 1
+                tail -= 1
+            else:
+                return False
+        return True 
+
+# Reversing from middle	
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        # Find mid        
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        # Reverse half        
+        prev = slow
+        slow = slow.next # Order of these 3 lines are critical
+        prev.next = None        
+        while slow:            
+            nxt = slow.next
+            slow.next = prev
+            prev = slow
+            slow = nxt
+        # Check
+        fast, slow = head, prev
+        while slow:
+            if fast.val != slow.val:
+                return False
+            fast = fast.next
+            slow = slow.next
+        return True
