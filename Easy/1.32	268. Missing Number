@@ -1,0 +1,36 @@
+# Using default functions	
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        return int((n*(n+1)/2) - sum(nums))
+
+# Iterative	
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        for i in range(len(nums)+1):
+            if i not in nums:
+                return i
+
+# Cyclic sort	
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        i, n = 0, len(nums)
+        while i < n:
+            val = nums[i]
+            if val < n and val != i:
+                nums[i], nums[val] = nums[val], nums[i]           
+            else:
+                i += 1
+        for i in range(len(nums)):
+            if i != nums[i]:
+                return i
+        return n
+
+# Bit manipulation	
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        res = 0
+        for i, val in enumerate(nums):
+            res ^= i+1
+            res ^= val            
+        return res
