@@ -1,0 +1,20 @@
+# Brute force	
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        if n == 1:
+            return True
+        for i in range(1, n):
+            mul = 3**i
+            if mul == n:
+                return True
+            elif mul > n:
+                return False
+
+# Division by 3	
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        if not n:
+            return False
+        while n % 3 == 0:
+            n = n // 3
+        return n == 1
