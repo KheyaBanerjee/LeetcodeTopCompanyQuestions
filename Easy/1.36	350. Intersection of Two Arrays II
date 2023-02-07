@@ -1,0 +1,40 @@
+# Dictionary	
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        d, res = {}, []
+        for c in nums1:
+            d[c] = d.get(c,0) + 1
+        for c in nums2:
+            if c in d and d[c] > 0:
+                res.append(c)
+                d[c] -= 1
+        return res
+
+# Counters	
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        d = collections.Counter(nums1)
+        res = []
+        for c in nums2:
+            if d[c] > 0:
+                res.append(c)
+                d[c] -= 1
+        return res
+
+# Two pointer - with sorting	
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        nums1.sort()
+        nums2.sort()
+        i, j = 0, 0
+        res = []
+        while i < len(nums1) and j < len(nums2):
+            if nums1[i] < nums2[j]:
+                i += 1
+            elif nums1[i] > nums2[j]:
+                j += 1
+            else:
+                res.append(nums1[i])
+                i += 1
+                j += 1
+        return res
