@@ -1,0 +1,63 @@
+# Using case/state, long answer	
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        if len(s) == 0:
+            return 0
+        sign, res, state = 1, 0, 0
+        i = 0
+        while i < len(s):
+            if state == 0:
+                if s[i] == ' ':
+                    state = 0
+                elif s[i] == '+' or s[i] == '-':
+                    state = 1
+                    if s[i] == '-':
+                        sign = -1
+                elif s[i].isdigit():
+                    res = res*10 + int(s[i])
+                    state = 2
+                else:
+                    return 0
+            elif state == 1:
+                if s[i].isdigit():
+                    res = res*10 + int(s[i])
+                    state = 2
+                else:
+                    return 0
+            elif state == 2:
+                if s[i].isdigit():
+                    res = res*10 + int(s[i])
+                    state = 2
+                else:
+                    break
+            else:
+                return 0
+            i += 1
+        if -2**31 > res*sign:
+            return -2**31
+        elif res*sign > (2**31-1):
+            return 2**31-1
+        else:
+            return sign*res
+
+# Step by step solution	
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        i = 0 # leading space
+        while i < len(s) and s[i] == ' ':
+            i += 1
+        sign = 1 # sin + or -
+        if i < len(s) and (s[i] == '+' or s[i] == '-'):
+            if s[i] == '-':
+                sign = -1
+            i += 1
+        res = 0 # digits
+        while i < len(s) and s[i].isdigit():
+            res = res*10 + int(s[i])
+            i += 1
+        if -2**31 > res*sign:
+            return -2**31
+        elif res*sign > (2**31-1):
+            return 2**31-1
+        else:
+            return sign*res
