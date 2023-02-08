@@ -1,0 +1,28 @@
+# String conversion - not matches the question req	
+class Solution:
+    def reverse(self, x: int):
+        # 
+        if x < 0:
+            sign = -1
+        else:
+            sign = 1
+        x = str(abs(x))
+        x = int(x[::-1])
+        if x < (2**31 - 1):
+            return sign*x
+        else:
+            return 0
+
+# Math - does not run in python; time limit	
+class Solution:
+    def reverse(self, x: int):
+        res = 0
+        while x != 0:
+            curr_digit = x % 10
+            curr_res = res * 10 + curr_digit
+            res = curr_res
+            x = x // 10
+        if res > -2**31 and res < (2**31 - 1):
+            return res
+        else:
+            return 0
