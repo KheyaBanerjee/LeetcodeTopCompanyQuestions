@@ -1,0 +1,31 @@
+# Brute force - using set	
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        maxlen = 0
+        unq = []        
+        if len(s) == 0:
+            return len(s)        
+        for c in s:            
+            unq.append(c)
+            if len(unq) == len(set(unq)):                
+                maxlen = max(maxlen, len(unq))
+            else:
+                unq.pop(0)
+                if len(unq) == len(set(unq)):
+                    maxlen = max(maxlen, len(unq))
+        return maxlen
+
+# Dictionary and two pointer / sliding window	
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        left, maxlen = 0, 0
+        dic = {}
+        for right in range(len(s)):
+            if s[right] not in dic:
+                maxlen = max(maxlen, right-left+1)
+            elif dic[s[right]] < left:
+                maxlen = max(maxlen, right-left+1)
+            else:                
+                left = dic[s[right]] + 1
+            dic[s[right]] = right
+        return maxlen
