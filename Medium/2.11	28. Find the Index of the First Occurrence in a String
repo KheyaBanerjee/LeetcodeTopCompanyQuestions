@@ -1,0 +1,30 @@
+# String compare	1
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        h_ptr = 0
+        while h_ptr < len(haystack)-len(needle)+1:            
+            if (haystack[h_ptr] != needle[0]) or (haystack[h_ptr] == needle[0] and haystack[h_ptr:h_ptr+len(needle)] != needle):
+                h_ptr += 1
+            elif haystack[h_ptr] == needle[0] and haystack[h_ptr:h_ptr+len(needle)] == needle:
+                return h_ptr
+        return -1
+
+# String compare - 2	
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        h_ptr = 0
+        for h_ptr in range(len(haystack)-len(needle)+1):            
+            if haystack[h_ptr] == needle[0] and haystack[h_ptr:h_ptr+len(needle)] == needle:
+                return h_ptr
+        return -1
+
+# Without string compare	
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        for h_ptr in range(len(haystack)-len(needle)+1):    
+            for n_ptr in range(len(needle)):
+                if haystack[h_ptr+n_ptr] != needle[n_ptr]:
+                    break
+                if n_ptr == len(needle)-1:
+                    return h_ptr
+        return -1
