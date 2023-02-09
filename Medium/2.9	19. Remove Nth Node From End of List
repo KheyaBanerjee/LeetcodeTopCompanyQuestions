@@ -1,0 +1,44 @@
+# Brute force, converting to a list	
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        ll_len, ll_list = 0, []
+        while head:
+            ll_len += 1
+            ll_list.append(head.val)
+            head = head.next
+        root = dummy = ListNode(0)
+        i = 0
+        while i < ll_len:
+            if i == ll_len - n:
+                i += 1
+            if i < ll_len:
+                dummy.next = ListNode(ll_list[i])
+                dummy = dummy.next
+                i += 1
+        return root.next
+
+# Two pointer	
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        if not head:
+            return head
+        slow, fast = head, head
+        for _ in range(n):
+            fast = fast.next
+        if not fast:
+            return head.next
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        return head
