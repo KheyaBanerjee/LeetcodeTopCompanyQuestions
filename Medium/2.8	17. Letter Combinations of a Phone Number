@@ -1,0 +1,32 @@
+# Backtracking 	
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        num2let_dic = { "2": "abc", "3": "def", "4":"ghi", "5":"jkl", "6":"mno", "7":"pqrs", "8":"tuv", "9":"wxyz"}
+        res = []
+        if len(digits) == 0:
+            return []
+        self.backtracking(digits, 0, '', num2let_dic, res)
+        return res
+
+    def backtracking(self, nums, idx, path, num2let_dic, res):
+        if idx >= len(nums):
+            res.append(path)
+            return
+        numstring = num2let_dic[nums[idx]]
+        for i in numstring:
+            self.backtracking(nums, idx+1, path+i, num2let_dic, res)
+
+# Iterative	
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        num2let_dic = { "2": "abc", "3": "def", "4":"ghi", "5":"jkl", "6":"mno", "7":"pqrs", "8":"tuv", "9":"wxyz"}
+        if not digits:
+            return []
+        res = ['']
+        for d in digits:
+            curr_comb = []
+            for letter in num2let_dic[d]:
+                for elem in res:
+                    curr_comb.append(elem + letter)
+            res = curr_comb
+        return res
