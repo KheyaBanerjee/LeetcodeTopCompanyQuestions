@@ -1,0 +1,23 @@
+# Two pointer, with sorting	
+class Solution:
+    def threeSum(self, arr: List[int]) -> List[List[int]]:
+        triplets = []
+        arr.sort()
+        for i in range(len(arr) - 2):
+            if i > 0 and arr[i] == arr[i-1]:
+                continue
+            left, right = i+1, len(arr)-1
+            while left < right:
+                if arr[left] + arr[right] + arr[i] < 0:
+                    left += 1
+                elif arr[left] + arr[right] + arr[i] > 0:
+                    right -= 1
+                else:
+                    triplets.append([arr[left], arr[right], arr[i]])
+                    while left < right and arr[left] == arr[left+1]:
+                        left += 1
+                    while left < right and arr[right] == arr[right-1]: 
+                        right -= 1
+                    left += 1
+                    right -= 1
+        return triplets
