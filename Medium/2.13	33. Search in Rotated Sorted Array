@@ -1,0 +1,44 @@
+# Modified binary search, but time limit exceeded	
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        # 
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                return mid
+            if nums[left] <= nums[mid]: # left side sorted
+                if target < nums[mid] and target >= nums[left]:
+                    mid = right
+                else:
+                    mid = left + 1
+            else: # right side sorted
+                if target > nums[mid] and target <= nums[right]:
+                    mid = left + 1
+                else:
+                    mid = right
+        return -1
+
+# Check if target and nums[mid] is in the same side	
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            comparator = nums[mid]
+            # Comparing both target and nums[mid] w.r.t nums[0]
+            if (target < nums[0] and nums[mid] < nums[0]) or (target >= nums[0] and nums[mid] >= nums[0]):
+                comparator = nums[mid]
+            else:
+                if target < nums[0]:
+                    comparator = -1*float('inf')
+                else:
+                    comparator = float('inf')
+            # Ordinary binary search, using comparator
+            if comparator == target:
+                return mid
+            if target > comparator:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return -1
