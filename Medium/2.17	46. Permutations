@@ -1,0 +1,13 @@
+# Backtracking	
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        self.backtracking(nums, [], res)
+        return res
+
+    def backtracking(self, arr, subarr, res):
+        if len(arr) == 0:
+            res.append(subarr)
+            return
+        for i in range(len(arr)):
+            self.backtracking(arr[:i]+arr[i+1:], subarr+[arr[i]], res)
