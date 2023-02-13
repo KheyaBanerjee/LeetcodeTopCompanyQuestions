@@ -1,0 +1,11 @@
+# Sort each word, store in dictionary	
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        res, dic = [], {}
+        for word in strs:
+            w = str(sorted(word))
+            if w not in dic:
+                dic[w] = [word]
+            else:
+                dic[w].append(word)
+        return list(dic.values())
