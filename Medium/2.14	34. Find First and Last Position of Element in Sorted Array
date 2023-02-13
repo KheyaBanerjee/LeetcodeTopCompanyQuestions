@@ -1,0 +1,47 @@
+# Only works if there are 2 repeatitins DO NOT USE	
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        # 
+        left, right = 0, len(nums)-1
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                if mid > 0 and nums[mid-1] == target:
+                    return [mid-1, mid]
+                elif mid < len(nums)-1 and nums[mid+1] == target:
+                    return [mid, mid+1]
+                else:
+                    return [mid, mid]
+            if target > nums[mid]:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return [-1, -1]
+
+# Two binary search	
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        def LeftBinarySearch(arr, t):
+            start, end = 0, len(nums)-1
+            while start <= end:
+                mid = (start + end) // 2
+                if arr[mid] < t:
+                    start = mid + 1 
+                else:
+                    end = mid - 1                  
+            return start
+        def RightBinarySearch(arr, t):
+            start, end = 0, len(arr)-1
+            while start <= end:
+                mid = (start + end) // 2
+                if arr[mid] <= t:
+                    start = mid + 1 
+                else:
+                    end = mid - 1                   
+            return end
+
+        left, right = LeftBinarySearch(nums, target), RightBinarySearch(nums, target)
+        if left <= right:
+            return [left, right]
+        else:
+            return [-1, -1]
