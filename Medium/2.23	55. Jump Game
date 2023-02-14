@@ -1,0 +1,9 @@
+# Greedy	
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        jumpstep = 0
+        for i, val in enumerate(nums):
+            if i > jumpstep:
+                return False
+            jumpstep = max(jumpstep, i+val)
+        return True
