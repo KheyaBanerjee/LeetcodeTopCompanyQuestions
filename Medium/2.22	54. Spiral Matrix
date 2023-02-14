@@ -1,0 +1,26 @@
+# Traverse 4 directions	
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        res = []
+        if len(matrix) == 0:
+            return res
+        Rstart, Cstart, Rend, Cend = 0, 0, len(matrix)-1, len(matrix[0])-1
+        while Rstart <= Rend and Cstart <= Cend:
+            print(res)
+            for i in range(Cstart, Cend+1): # left -> right
+                res.append(matrix[Rstart][i])
+            Rstart += 1
+            for i in range(Rstart, Rend+1): # top -> bottom
+                res.append(matrix[i][Cend])
+            Cend -= 1
+            if Rstart <= Rend: # right -> left
+                i = Cend
+                for i in range(Cend, Cstart-1, -1):
+                    res.append(matrix[Rend][i])
+                Rend -= 1
+            if Cstart <= Cend: # bottom -> top
+                i = Rend
+                for i in range(Rend, Rstart-1, -1):
+                    res.append(matrix[i][Cstart])
+                Cstart += 1
+        return res
