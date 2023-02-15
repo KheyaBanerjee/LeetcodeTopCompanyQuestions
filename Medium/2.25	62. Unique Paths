@@ -1,0 +1,35 @@
+# Recursive, TIME LIMIT EXCEEDS	
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        def helper(rowc, colc):
+            if rowc > m or colc > n:
+                return 0
+            if rowc == m-1 and colc == n-1:
+                return 1
+            return helper(rowc+1, colc) +  helper(rowc, colc+1)
+        return helper(0, 0)
+
+# Memorization	
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        def helper(rowc, colc, memorization):
+            if rowc < 0 or colc < 0:
+                return 0
+            elif rowc == 0 or colc == 0:
+                return 1
+            elif memorization[rowc][colc] > 0:
+                return memorization[rowc][colc]
+            else:
+                memorization[rowc][colc] = helper(rowc-1, colc, memorization) +  helper(rowc, colc-1, memorization)
+                return memorization[rowc][colc]
+        memorization = [[0]*n for _ in range(m)]
+        return helper(m-1, n-1, memorization)
+
+# DP	
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [[1]*n for i in range(m)]
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i-1][j] + dp[i][j-1] # top + left
+        return dp[-1][-1]
