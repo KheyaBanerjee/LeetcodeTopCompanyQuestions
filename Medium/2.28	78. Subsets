@@ -1,0 +1,34 @@
+# Backtracking	
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        #      
+        def backtracking(arr, path, res):
+            res.append(path)
+            for i in range(len(arr)):
+                backtracking(arr[i+1:], path+[arr[i]], res)
+        res = []
+        backtracking(nums, [], res)
+        return res
+
+# Iterative, list comprehension	
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = [[]]
+        for num in nums:
+            res += [elem + [num] for elem in res]
+        return res
+
+# Iterative	
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res=[[]]
+        for i in range(len(nums)):
+            tmp_res=[]
+            n = len(res)
+            for j in range(n):
+                tmp = res[j].copy()
+                tmp.append(nums[i])
+                res.append(tmp)
+        return res
