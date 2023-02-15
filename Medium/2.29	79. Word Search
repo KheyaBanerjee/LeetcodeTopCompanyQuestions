@@ -1,0 +1,20 @@
+# Backtracking	
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        def backtracking(matrix, rowid, colid, path):
+            if len(path) == 0:
+                return True
+            if rowid < 0 or rowid >= len(matrix) or colid < 0 or colid >= len(matrix[0]) or matrix[rowid][colid] != path[0]:
+                return False
+            tmp = matrix[rowid][colid]
+            matrix[rowid][colid] = '*'
+            res = backtracking(matrix, rowid+1, colid, path[1:]) or backtracking(matrix, rowid-1, colid, path[1:]) or backtracking(matrix, rowid, colid+1, path[1:]) or backtracking(matrix, rowid, colid-1, path[1:])
+            matrix[rowid][colid] = tmp
+            return res
+        if not board:
+            return False
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if backtracking(board, i, j, word):
+                    return True
+        return False
