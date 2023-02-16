@@ -1,0 +1,50 @@
+# Deapth first search, stack	
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return root
+        res = []
+        stack = [(root, 0)]
+        while stack:
+            Celem, level = stack.pop()
+            if level >= len(res):
+                res.append([Celem.val])
+            else:
+                res[level].append(Celem.val)
+            if Celem.right:
+                stack.append((Celem.right, level+1))
+            if Celem.left:
+                stack.append((Celem.left, level+1))
+        return res
+
+# Depth first search, queue	
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return root
+        queue = deque([root])
+        res = []
+        while queue:
+            n = len(queue)
+            curr_level = []
+            for _ in range(n):
+                Celem = queue.popleft()
+                if Celem.left:
+                    queue.append(Celem.left)
+                if Celem.right:
+                    queue.append(Celem.right)
+                curr_level.append(Celem.val)
+            res.append(curr_level)
+        return res
