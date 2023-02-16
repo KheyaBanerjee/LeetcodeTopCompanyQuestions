@@ -1,0 +1,29 @@
+# Breadth first search, queue	
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        # 
+        if not root:
+            return root
+        res = []
+        queue = deque([(root, 0)])
+        while queue:
+            curr_level, n = [], len(queue)
+            for _ in range(n):
+                Celem, level = queue.popleft()
+                if Celem.left:
+                    queue.append((Celem.left, level+1))
+                if Celem.right:
+                    queue.append((Celem.right, level+1))
+                curr_level.append(Celem.val)
+            if level % 2 == 1:
+                curr_level = curr_level[::-1]
+            res.append(curr_level)
+        return res
+        # Or you can start dir with +1 and multiply *-1 each step
+        # res.append(curr_level[::dir])
