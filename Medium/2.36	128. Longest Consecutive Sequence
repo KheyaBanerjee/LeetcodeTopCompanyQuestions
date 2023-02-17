@@ -1,0 +1,12 @@
+# Rem dup, then check seq	
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        nums = set(nums)
+        maxlen = 0
+        for num in nums:
+            if num-1 not in nums: # start of a seq
+                end = num + 1
+                while end in nums:
+                    end += 1
+                maxlen = max(maxlen, end-num)
+        return maxlen
