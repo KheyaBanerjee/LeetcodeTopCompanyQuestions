@@ -1,0 +1,29 @@
+# DFS	
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """     
+        if not board or not board[0]:
+            return
+        m, n = len(board), len(board[0])
+        for i in [0, m-1]: # all the row edge 0 -> *
+            for j in range(n):
+                self.DFS(board, i, j)
+        for i in range(m): # all the col edge 0 -> *
+            for j in [0, n-1]:
+                self.DFS(board, i, j)
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == '*':
+                    board[i][j] = 'O'
+                elif board[i][j] == 'O':
+                    board[i][j] = 'X'
+    def DFS(self, board, ix, jx):
+        m, n = len(board), len(board[0])
+        if ix >= 0 and ix < m and jx >= 0 and jx < n and board[ix][jx] == 'O':
+            board[ix][jx] = '*'
+            self.DFS(board, ix+1, jx)
+            self.DFS(board, ix-1, jx)
+            self.DFS(board, ix, jx+1)
+            self.DFS(board, ix, jx-1)
