@@ -1,0 +1,32 @@
+# Brute force, TIME LIMIT EXCEEDS	
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        n = len(gas)
+        for i in range(n):
+            tank, count = 0, 0
+            j = i
+            while count < n:
+                tank += gas[j%n] - cost[j%n]
+                #print(i, j, tank)
+                if tank < 0:
+                    break
+                j += 1
+                count += 1
+            if count == n and tank >= 0:
+                return i
+        return -1
+
+# Greedy	
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        curr_surplus, total_surplus, start = 0, 0, 0
+        for i in range(len(gas)):
+            total_surplus += gas[i] - cost[i]
+            curr_surplus += gas[i] - cost[i]
+            if curr_surplus < 0:
+                curr_surplus = 0
+                start = i + 1
+        if total_surplus >= 0:
+            return start
+        else:
+            return -1
