@@ -1,0 +1,43 @@
+# With 2 copies	
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+class Solution:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        lldict = {}
+        m = n = head
+        while m:
+            lldict[m] = Node(m.val)
+            m = m.next
+        while n:
+            lldict[n].next = lldict.get(n.next)
+            lldict[n].random = lldict.get(n.random)
+            n = n.next
+        return lldict.get(head)
+
+
+# With 1 copy	
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+class Solution:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        lldict = collections.defaultdict(lambda:Node(0))
+        lldict[None] = None
+        n = head
+        while n:
+            lldict[n].val = n.val
+            lldict[n].next = lldict[n.next]
+            lldict[n].random = lldict[n.random]
+            n = n.next
+        return lldict[head]
