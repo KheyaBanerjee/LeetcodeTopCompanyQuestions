@@ -1,0 +1,44 @@
+# Stack	
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        # 
+        numstk = []
+        res = 0
+        for i in range(len(tokens)):
+            #print(numstk)
+            try:
+                int(tokens[i])
+                numstk.append(int(tokens[i]))
+            except ValueError:
+                second = numstk.pop()
+                first = numstk.pop()
+                if tokens[i] == '+':
+                    numstk.append(int(first + second))
+                elif tokens[i] == '-':
+                    numstk.append(int(first - second))
+                elif tokens[i] == '*':
+                    numstk.append(int(first * second))
+                else:
+                    numstk.append(int(float(first) / second))
+        return int(numstk[0])
+
+
+# Stack, cleaner	
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        numstk = []
+        for t in tokens:
+            if t not in '+-*/':
+                numstk.append(int(t))
+            else:
+                second = numstk.pop()
+                first = numstk.pop()
+                if t == '+':
+                    numstk.append(int(first + second))
+                elif t == '-':
+                    numstk.append(int(first - second))
+                elif t == '*':
+                    numstk.append(int(first * second))
+                else:
+                    numstk.append(int(float(first) / second))
+        return int(numstk[0])
