@@ -1,0 +1,21 @@
+# Hashmap	
+class Solution:
+    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        res = []
+        if numerator*denominator < 0:
+            res.append('-')
+        num, rem = divmod(abs(numerator), abs(denominator))
+        res.append(str(num))
+        if rem == 0:
+            return ''.join(res)
+        res.append('.')
+        hashmap = {}
+        while rem > 0 and rem not in hashmap:
+            hashmap[rem] = len(res)
+            num, rem = divmod(rem*10, abs(denominator))
+            res.append(str(num))
+        if rem in hashmap:
+            idx = hashmap[rem]
+            res.insert(idx, '(')
+            res.append(')')
+        return ''.join(res)
