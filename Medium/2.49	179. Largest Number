@@ -1,0 +1,15 @@
+# Bubble sort	
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        def helper_compare(n1, n2):
+            return str(n1) + str(n2) > str(n2) + str(n1)
+        for i in range(len(nums)-1, -1, -1):
+            for j in range(i):
+                if not helper_compare(nums[j], nums[j+1]):
+                    nums[j], nums[j+1] = nums[j+1], nums[j]
+        if nums[0] == 0:
+            return '0'
+        res = ''
+        for num in nums:
+            res += str(num)
+        return res
