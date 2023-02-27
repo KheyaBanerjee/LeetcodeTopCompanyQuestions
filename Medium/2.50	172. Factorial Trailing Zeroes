@@ -1,0 +1,26 @@
+# Brute force	
+class Solution:
+    def trailingZeroes(self, n: int) -> int:
+        if n < 5:
+            return 0
+        res = 1
+        for i in range(n, 0, -1):
+            res *= i
+        res = str(res)
+        count = 0
+        for i in range(len(str(res))-1, -1, -1):
+            if res[i] == '0':
+                count += 1
+            else: 
+                break
+        return count
+
+
+# Math O(logN)	
+class Solution:
+    def trailingZeroes(self, n: int) -> int:
+        count, i = 0, 5
+        while n/i > 0: # count how many 5, 5*5, 5*5*5 ...
+            count += n // i
+            i *= 5
+        return count
