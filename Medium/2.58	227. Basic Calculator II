@@ -1,0 +1,48 @@
+# Stack	
+class Solution:
+    def calculate(self, s: str) -> int:
+        if not s:
+            return 0
+        preOp, num = '+', 0
+        stack = []
+        for i, elem in enumerate(s):
+            if elem.isdigit():
+                num = num*10 + int(elem) # required for digits > 9
+            if (not elem.isdigit() and not elem.isspace()) or i == len(s)-1:
+                if preOp == '+':
+                    stack.append(num)
+                elif preOp == '-':
+                    stack.append(-num)
+                elif preOp == '*':
+                    stack.append(stack.pop() * num)
+                else:
+                    stack.append(int(stack.pop() / num))
+                preOp = elem
+                num = 0
+        return sum(stack)
+
+
+
+# Without stack	
+class Solution:
+    def calculate(self, s: str) -> int:
+        res, curr_res, num, preOp = 0, 0, 0, '+'
+        for elem in s + '##': # does not work if "##" is not added
+            if elem == ' ':
+                continue
+            elif elem.isdigit():
+                num = 10*num + int(elem)
+            else:
+                if preOp == '*':
+                    curr_res *= num
+                elif preOp == '/':
+                    curr_res = int(curr_res / num)
+                else:
+                    res += curr_res
+                    if preOp == '+':
+                        curr_res = num
+                    else:
+                        curr_res = -num
+                preOp = elem
+                num = 0
+        return res
