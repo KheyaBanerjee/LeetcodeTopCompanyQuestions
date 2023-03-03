@@ -1,0 +1,43 @@
+# Deque, Does not work for [[[]]]	
+class Vector2D:
+    def __init__(self, vec: List[List[int]]):
+        self.arr = collections.deque(vec)
+    def next(self) -> int:
+        elem = deque.popleft(self.arr)
+        if isinstance(elem, int):
+            return elem
+        else:
+            if len(elem) == 1:
+                return elem[0]
+            else:
+                tmp = elem.pop(0)
+                self.arr.appendleft(elem)
+                return tmp     
+    def hasNext(self) -> bool:
+        if not self.arr:
+            return False
+        if len(self.arr) > 0:
+            return True
+        else:
+            return False
+
+
+
+# Inner and outer pointer, copied	
+class Vector2D:
+    def __init__(self, vec: List[List[int]]):
+        self.arr = vec
+        self.inner = 0
+        self.outer = 0
+    def goto_next(self):
+        while self.outer < len(self.arr) and self.inner == len(self.arr[self.outer]):
+            self.inner = 0
+            self.outer += 1
+    def next(self) -> int:
+        self.goto_next()
+        res = self.arr[self.outer][self.inner]
+        self.inner += 1
+        return res
+    def hasNext(self) -> bool:
+        self.goto_next()
+        return self.outer < len(self.arr)
