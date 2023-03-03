@@ -1,0 +1,24 @@
+# Recursive	
+class Solution:
+    def inorderSuccessor(self, root: TreeNode, p: TreeNode) -> Optional[TreeNode]:
+        # 
+        if not root:
+            return
+        if p.val < root.val:
+            return self.inorderSuccessor(root.left, p) or root
+        else:
+            return self.inorderSuccessor(root.right, p)
+
+
+
+# Iterative	
+class Solution:
+    def inorderSuccessor(self, root: TreeNode, p: TreeNode) -> Optional[TreeNode]:
+        successor = None
+        while root:
+            if p.val < root.val:
+                successor = root
+                root = root.left
+            else:
+                root = root.right
+        return successor
