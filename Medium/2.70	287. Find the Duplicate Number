@@ -1,0 +1,51 @@
+# Brute force, TIME LIMIT EXCEEDED	
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        for i in range(len(nums)):
+            for j in range(i+1, len(nums)):
+                if i == j:
+                    continue
+                if nums[i] == nums[j]:
+                    return nums[i]
+
+
+
+# Counting frequency	
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        count = [0]*(len(nums)+1)
+        for num in nums:
+            count[num] += 1
+            if count[num] > 1:
+                return num
+
+
+
+# Dictionary	
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        rep_dict = {}
+        for num in nums:
+            if num not in rep_dict:
+                rep_dict[num] = 1
+            else:
+                return num
+
+
+
+# Binary search	
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        n = len(nums)
+        left, right = 0, n-1
+        while left < right:
+            mid = (left + right) // 2
+            count = 0
+            for num in nums:
+                if num <= mid:
+                    count += 1
+            if count <= mid:
+                left = mid + 1
+            else:
+                right = mid
+        return left
