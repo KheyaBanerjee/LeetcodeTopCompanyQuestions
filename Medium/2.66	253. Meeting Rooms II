@@ -1,0 +1,13 @@
+# Heap	
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        intervals.sort(key=lambda x:x[0])
+        minheap = []
+        for interval in intervals:
+            if minheap and interval[0] >= minheap[0]: # use same room
+                heapq.heapreplace(minheap, interval[1])
+            else:
+                heapq.heappush(minheap, interval[1])
+        return len(minheap)
