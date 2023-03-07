@@ -1,0 +1,16 @@
+class NestedIterator:
+    class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self.res = []
+        while nestedList:
+            self.res.append(nestedList.pop())
+    
+    def next(self) -> int:
+        return self.res.pop().getInteger()         
+    def hasNext(self) -> bool:
+        while self.res:
+            top = self.res[-1]
+            if top.isInteger():
+                return True
+            self.res = self.res[:-1]+top.getList()[::-1]
+        return False
