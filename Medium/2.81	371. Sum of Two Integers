@@ -1,0 +1,15 @@
+# Bit manipulation	
+class Solution:
+    def getSum(self, a: int, b: int) -> int:
+        MAX = 0x7FFFFFFF
+        mask = 0xFFFFFFFF
+        while b != 0:
+            a, b = (a ^ b) & mask, ((a & b) << 1) & mask
+            carry = a & b
+            a = (a ^ b) & mask # sum
+            b = (carry << 1) & mask
+        
+        if a <= MAX:
+            return a
+        else:
+            return ~(a ^ mask) # for -ve numbers
