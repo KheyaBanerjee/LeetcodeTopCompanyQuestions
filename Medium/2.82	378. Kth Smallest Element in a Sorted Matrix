@@ -1,0 +1,63 @@
+# Brute force	
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        res = []
+        for row in range(len(matrix)):
+            for col in range(len(matrix[0])):
+                res.append(matrix[row][col])
+        res.sort()
+        return res[k-1]
+
+
+
+# Heap	
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        minheap = []
+        for row in range(len(matrix)):
+            for col in range(len(matrix[0])):
+                heapq.heappush(minheap, matrix[row][col])
+        count = 0
+        for i in range(len(minheap)):
+            count += 1
+            elem = heapq.heappop(minheap)
+            if count == k:
+                return elem
+
+
+
+# Heap, kth smal-elem from M sorted rows	
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        minheap = []
+        for row in range(min(len(matrix), k)):
+            heapq.heappush(minheap, (matrix[row][0], row, 0))
+        for i in range(k):
+            res, row, col = heapq.heappop(minheap)
+            if col + 1 < len(matrix[0]):
+                heapq.heappush(minheap, (matrix[row][col+1], row, col+1))
+        return res
+
+
+
+# Binary search, copied	
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        m, n = len(matrix), len(matrix[0])
+        def countLessOrEqual(x):
+            cnt = 0
+            c = n - 1  # start with the rightmost column
+            for r in range(m):
+                while c >= 0 and matrix[r][c] > x: c -= 1  # decrease column until matrix[r][c] <= x
+                cnt += (c + 1)
+            return cnt
+        left, right = matrix[0][0], matrix[-1][-1]
+        ans = -1
+        while left <= right:
+            mid = (left + right) // 2
+            if countLessOrEqual(mid) >= k:
+                ans = mid
+                right = mid - 1  # try to looking for a smaller value in the left side
+            else:
+                left = mid + 1  # try to looking for a bigger value in the right side
+        return ans
