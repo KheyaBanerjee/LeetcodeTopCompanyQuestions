@@ -1,0 +1,43 @@
+# Dictionary + heap	
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        freq_dict = {}
+        for num in nums:
+            if num not in freq_dict:
+                freq_dict[num] = 1
+            else:
+                freq_dict[num] += 1
+        maxheap = []
+        for elem in freq_dict:
+            heapq.heappush(maxheap, (-freq_dict[elem], elem))
+        res = []
+        for _ in range(k):
+            elem = heapq.heappop(maxheap)[1]
+            res.append(elem)
+        return res
+
+
+
+# Bucket sort	
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        freq_dict = {}
+        for num in nums:
+            if num not in freq_dict:
+                freq_dict[num] = 1
+            else:
+                freq_dict[num] += 1
+        bucket = {}
+        for key in freq_dict:
+            if freq_dict[key] not in bucket:
+                bucket[freq_dict[key]] = [key]
+            else:
+                bucket[freq_dict[key]].append(key)
+        res = []
+        for i in range(len(nums), -1, -1):
+            if i in bucket:
+                for j in bucket[i]:
+                    res.append(j)
+            if len(res) == k:
+                break
+        return res
